@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXHIBITLY (NFT MARKETPLACE)</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/style.css')}}">
+    <link rel="icon" href="{{url_for('static',filename='./images/savings-account.jpg')}}" type="image/x-icon">
+</head>
+<body>
+    <body>
+  <div class="container">
+    <header>
+      <div class="logo">EXHIBITLY</div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+      <nav id="mainNav">
+        <a href="{{url_for('home')}}">Home</a>
+    <!-- Mint and Connect Wallet buttons removed for home page -->
+      </nav>
+      <div class="header-right">
+  <button class="create-btn" ><a href="{{url_for('signup')}}">✨Signup </a></button>
+  <button class="signup-btn"><a href="{{url_for('login')}}">Login<a/></button>
+        <div id="profilePreview" class="profile-preview" style="display:none;">
+          <div class="profile-avatar">U</div>
+          <span id="profileAddress">0x...abc</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Discover, Collect & Sell NFTs</h1>
+      <p>Buy, sell, and discover exclusive digital collectibles on the world’s first and largest NFT marketplace.</p>
+      <div id="walletAlert" style="display:none;" class="alert alert-error">
+        Please connect your wallet to buy NFTs.
+      </div>
+    </section>
+
+    <!-- Search & Filters -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search collections, NFTs, or users..." />
+      <select id="chainFilter" class="filter-select">
+        <option value="">All Chains</option>
+        <option value="Ethereum">Ethereum</option>
+        <option value="Polygon">Polygon</option>
+      </select>
+      <select id="sortFilter" class="filter-select">
+        <option value="recent">Recently Listed</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+      </select>
+    </div>
+
+
+    <!-- for the images-->
+
+<div style="
+        display: grid;
+        /* Creates columns that are at least 250px wide and takes up equal space */
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px; /* Space between the grid items */
+        padding: 0 40px;
+        max-width: 1200px; /* Max width for a clean look on large screens */
+        margin: 0 auto;
+    ">
+        {% for img in images %}
+        <div style="
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center;
+            padding: 15px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+            transition: transform 0.2s; 
+        " onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            
+            <img src="{{ url_for('static', filename=img.filename) }}" 
+                 alt="{{ img.name }}" 
+                 style="
+                     width: 100%; 
+                     height: auto; 
+                     max-height: 300px; 
+                     object-fit: cover; 
+                     border-radius: 10px; 
+                     margin-bottom: 10px;
+                 ">
+            
+            <h3 style="margin:10px 0 5px 0; font-weight:bold; font-size:1.1em; color: #333;">{{ img.name }}</h3>
+            
+            <p style="margin:0; color:#6c5ce7; font-weight:bold; font-size:1em;">{{ img.price }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+<footer style="
+    text-align: center; 
+    padding: 20px; 
+    margin-top: 40px; 
+    color: #888;
+">
+    &copy; 2025 NFT Marketplace. All rights reserved.
+</footer>
+
+<script src="{{url_for('static',filename='.js/script.js')}}"></script>
+</body>
+</html>

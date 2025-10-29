@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f2f2f2;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            margin-bottom: 40px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background: #333;
+            color: white;
+        }
+        input {
+            padding: 6px;
+            width: 100px;
+        }
+        button {
+            padding: 7px 12px;
+            background: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .logout {
+            float: right;
+            margin-bottom: 15px;
+        }
+        .chat-box {
+            max-height: 140px;
+            overflow-y: auto;
+            border: 1px solid #888;
+            background: #fafafa;
+            padding: 10px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            text-align: left;
+        }
+        .from-user { color: blue; }
+        .from-admin { color: green; }
+        .reply-form input {
+            width: 78%;
+            padding: 8px;
+        }
+        .reply-form button {
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="/logout" class="logout">Logout</a>
+    <h1>Admin Dashboard</h1>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Balance</th>
+            <th>NFT Balance</th>
+            <th>Messages</th>
+        </tr>
+
+        {% for u in users %}
+        <tr>
+            <td>{{ u.id }}</td>
+            <td>{{ u.email }}</td>
+
+            <!-- Balance Update Form -->
+            <td>
+                <form action="/admin" method="POST">
+                    <input type="hidden" name="action" value="update_balance">
+                    <input type="hidden" name="user_id" value="{{ u.id }}">
+                    <input type="number" name="balance" value="{{ u.balance }}" step="0.01">
+                    <button type="submit">Save</button>
+                </form>
+            </td>
+
+            <td>
+                <form action="/admin" method="POST">
+                    <input type="hidden" name="action" value="update_balance">
+                    <input type="hidden" name="user_id" value="{{ u.id }}">
+                    <input type="number" name="nft_balance" value="{{ u.nft_balance }}">
+                    <button type="submit">Save</button>
+                </form>
+            </td>
+
+            <!-- Chat display + reply -->
+            <td style="width:350px;">
+                <div class="chat-box">
+                    {% for m in u.messages %}
+                        {% if m.sender == 'admin' %}
+                            <p class="from-admin"><strong>You:</strong> {{ m.message }}</p>
+                        {% else %}
+                            <p class="from-user"><strong>User:</strong> {{ m.message }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <form class="reply-form" action="/admin" method="POST">
+                    <input type="hidden" name="action" value="send_message">
+                    <input type="hidden" name="user_id" value="{{ u.id }}">
+                    <input type="text" name="admin_reply" placeholder="Reply to user..." required>
+                    <button type="submit">Send</button>
+                </form>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

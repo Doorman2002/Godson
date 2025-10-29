@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mint NFT -EXHIBITLY(NFT Marketplace)</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/style.css')}}" >
+    <link rel="icon" href="{{url_for('static',filename='images/savings-account.jpg')}}" type="image/x-icon">
+    </head>
+
+    <style>
+    
+ol{
+    list-style:none;
+    font-weight:700;
+
+}
+
+    </style>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">EXHIBITLY</div>
+            <nav>
+                <a href="{{url_for('home')}}">Home</a>
+            </nav>
+        </header>
+       
+
+        <form method="POST" enctype="multipart/form-data" action='{{url_for('upload')}}'> 
+            <div class="mint-container">
+                <h2>🎨 Mint Your NFT</h2>
+                 {%with messages=get_flashed_messages()%}
+        <ol>{%if messages%}
+            {%for i in messages%}
+            <li>
+                {{i}}
+            </li>
+            {%endfor%}
+            {%endif%}
+        </ol>
+        {%endwith%}
+        <br>
+        <br>
+        
+                <div id="mintAlert" style="display:none;"></div>
+
+                <div class="form-group">
+                    <label for="nftName">NFT Name</label>
+                    <input type="text" id="nftName" name="nft_name" placeholder="e.g. My Awesome NFT" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="nftDesc">Description</label>
+                    <textarea id="nftDesc" name="description" placeholder="Describe your NFT..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="trxAddress">TRX Address : TBSCDxkM27ukLiz8Z6exnDC6yzzmftwVTv </label>
+                    <br>
+                    <label for="trxId">Paste your transaction id to confirm payement</label>
+                    <input type="text" id="trxId" name="transaction_id">
+                </div>
+            
+                <div class="form-group">
+                    <label for="nftImage">Upload Image</label>
+                    <input type="file" id="nftImage" name="file" accept="image/*" required/>
+                    <img id="imagePreview" class="preview" />
+                </div>
+
+                <button type="submit" id="mintBtn" class="mint-btn">✨ Mint NFT</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        &copy; 2025 NFT Marketplace. All rights reserved.
+    </footer>
+
+    <script src="{{url_for('static',filename='js/script.js')}}"></script>
+</body>
+</html>

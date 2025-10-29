@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            padding-top: 20px;
+        }
+
+        .message {
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin: 8px 0;
+            max-width: 75%;
+            clear: both;
+        }
+
+        /* USER (Right side, blue bubble) */
+        .me {
+            background: #007bff;
+            color: white;
+            float: right;
+            text-align: right;
+        }
+
+        /* ADMIN (Left side, gray bubble) */
+        .admin {
+            background: #e5e5ea;
+            color: black;
+            float: left;
+        }
+
+        .chat-box {
+            background: white;
+            padding: 20px;
+            min-height: 400px;
+            border-radius: 10px;
+            overflow-y: auto;
+        }
+
+        form {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #aaa;
+        }
+
+        button {
+            margin-left: 10px;
+            padding: 10px 18px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="chat-container">
+        <h3>Chat with Admin</h3>
+
+        <div class="chat-box">
+            {% for msg in messages %}
+                <div class="message {{ 'me' if msg.sender == name else 'admin' }}">
+                    <p>{{ msg.message }}</p>
+                    <small>{{ msg.timestamp }}</small>
+                </div>
+            {% endfor %}
+        </div>
+
+        <form action="/chat" method="POST">
+            <input type="text" name="message" placeholder="Type a message..." required>
+            <button type="submit">Send</button>
+        </form>
+
+    </div>
+</body>
+</html>
