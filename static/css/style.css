@@ -14,6 +14,7 @@ body{
 a{
   text-decoration: none;
   color:white;
+  padding-left: 28px;
 }
 
 @media (max-width: 900px) {
@@ -50,7 +51,7 @@ a{
     font-size: 1.3rem;
   }
   .sticky-nav {
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.5rem;
     padding: 0.5rem 0;
   }
@@ -196,6 +197,7 @@ a{
   gap: 1rem;
   padding: 1rem 0;
   border-bottom: 1px solid #eee;
+  flex-direction: row;
 }
 .mint-btn {
   background: #1eed07d1;
@@ -446,7 +448,7 @@ nav a:hover {
 }
 
 .mint-btn {
-  width: 100%;
+  width: inherit;
   padding: 14px;
   background: #28a745;
   color: white;
@@ -501,14 +503,11 @@ footer {
   border-top: 1px solid #e9ecef;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 600px) {
   .nft-grid {
     grid-template-columns: 1fr;
   }
 
-  nav a {
-    display: none;
-  }
 
   .mobile-menu {
     display: block;
@@ -721,7 +720,7 @@ footer {
   font-size: 18px;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 600px) {
   .mobile-menu-btn {
     display: block;
   }
