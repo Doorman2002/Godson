@@ -3,7 +3,6 @@ from flask import Flask, render_template, request, redirect, flash, url_for, mak
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from  tronpy import Tron
-import time
 from werkzeug.utils import secure_filename
 import datetime
 
