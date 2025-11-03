@@ -195,9 +195,8 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             flash("You are free to Login now")
-            resp=make_response(redirect(url_for('login')))
-            # Removed redundant session/cookie setting for simple login flow
-            return resp
+            # 🌟 FIX: Use standard redirect instead of make_response
+            return redirect(url_for('login')) 
 
     return render_template("signup.html")
 
