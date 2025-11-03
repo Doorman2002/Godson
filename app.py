@@ -8,7 +8,8 @@ import datetime
 
 app = Flask(__name__)
 app.secret_key = "246810aeiou@A"
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///user.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://nft_h5jh_user:VPA5HkgxDRAA149RG1EkBEyeBGbrhyX8@dpg-d44cl7adbo4c73bqkc4g-a/nft_h5jh'
+
 # Silence a deprecation warning
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 db = SQLAlchemy(app)
@@ -195,8 +196,9 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             flash("You are free to Login now")
-            # 🌟 FIX: Use standard redirect instead of make_response
-            return redirect(url_for('login')) 
+            resp=make_response(redirect(url_for('login')))
+            # Removed redundant session/cookie setting for simple login flow
+            return resp
 
     return render_template("signup.html")
 
