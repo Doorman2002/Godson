@@ -117,6 +117,11 @@ def home():
     # Redirect to the root index which loads all NFTs
     return redirect(url_for('index'))
 
+@app.route("/withdraw")
+def withdraw():
+    flash("Please Communicate with Admin for Withdrawal")
+    return redirect(url_for('dashboard'))
+
 
 
 @app.route("/admin", methods=["GET", "POST"])

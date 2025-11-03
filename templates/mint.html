@@ -6,70 +6,100 @@
     <title>Mint NFT -EXHIBITLY(NFT Marketplace)</title>
     <link rel="stylesheet" href="{{url_for('static',filename='./css/style.css')}}" >
     <link rel="icon" href="{{url_for('static',filename='images/savings-account.jpg')}}" type="image/x-icon">
-    </head>
-
-    <style>
     
-ol{
-    list-style:none;
-    font-weight:700;
-
-}
-
+    <style>
+        /* Styles for clean, alert-like flash messages */
+        ol {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background: rgba(16, 185, 129, 0.1); 
+            border: 1px solid rgba(16, 185, 129, 0.5); 
+            color: #10b981; 
+            font-weight: 600;
+        }
+        /* Style for the transaction address */
+        .trx-address {
+            font-weight: 700;
+            color: #4f46e5; 
+            display: block;
+            margin-top: 5px;
+            font-size: 1.1rem;
+        }
     </style>
+</head>
 
 <body>
     <div class="container">
         <header>
             <div class="logo">EXHIBITLY</div>
             <nav>
-                <a href="{{url_for('home')}}">Home</a>
+                <a href="{{url_for('home')}}" style="color:var(--text); text-decoration:none;">Home</a>
             </nav>
         </header>
-       
+        
 
         <form method="POST" enctype="multipart/form-data" action='{{url_for('upload')}}'> 
-            <div class="mint-container">
+            <div class="mint-container" style="
+                max-width: 600px;
+                margin: 40px auto;
+                background: var(--panel);
+                padding: 40px;
+                border-radius: 12px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                color: var(--text);
+            ">
+                
                 <h2>🎨 Mint Your NFT</h2>
-                 {%with messages=get_flashed_messages()%}
-        <ol>{%if messages%}
-            {%for i in messages%}
-            <li>
-                {{i}}
-            </li>
-            {%endfor%}
-            {%endif%}
-        </ol>
-        {%endwith%}
-        <br>
-        <br>
-        
+                
+                {% with messages=get_flashed_messages() %}
+                <ol>
+                    {% if messages %}
+                        {% for i in messages %}
+                        <li>{{ i }}</li>
+                        {% endfor %}
+                    {% endif %}
+                </ol>
+                {% endwith %}
+                
                 <div id="mintAlert" style="display:none;"></div>
 
-                <div class="form-group">
-                    <label for="nftName">NFT Name</label>
-                    <input type="text" id="nftName" name="nft_name" placeholder="e.g. My Awesome NFT" required/>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="nftName" style="display:block; margin-bottom: 0.5rem; font-weight: 600;">NFT Name</label>
+                    <input type="text" id="nftName" name="nft_name" placeholder="e.g. My Awesome NFT" required 
+                           style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--glass); background: transparent; color: var(--text); font-size: 1rem; box-sizing: border-box;"
+                    />
                 </div>
 
-                <div class="form-group">
-                    <label for="nftDesc">Description</label>
-                    <textarea id="nftDesc" name="description" placeholder="Describe your NFT..." required></textarea>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="nftDesc" style="display:block; margin-bottom: 0.5rem; font-weight: 600;">Description</label>
+                    <textarea id="nftDesc" name="description" placeholder="Describe your NFT..." required
+                              style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--glass); background: transparent; color: var(--text); font-size: 1rem; min-height: 120px; resize: vertical; box-sizing: border-box;"
+                    ></textarea>
                 </div>
-
-                <div class="form-group">
-                    <label for="trxAddress">TRX Address : TBSCDxkM27ukLiz8Z6exnDC6yzzmftwVTv </label>
-                    <br>
-                    <label for="trxId">Paste your transaction id to confirm payement</label>
-                    <input type="text" id="trxId" name="transaction_id">
+                
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label style="display:block; margin-bottom: 0.5rem; color: var(--muted);">TRX Address:</label>
+                    <span class="trx-address">TBSCDxkM27ukLiz8Z6exnDC6yzzmftwVTv</span>
+                    
+                    <label for="trxId" style="display:block; margin-top: 1rem; margin-bottom: 0.5rem; font-weight: 600;">Paste your transaction ID to confirm payment</label>
+                    <input type="text" id="trxId" name="transaction_id" 
+                           style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--glass); background: transparent; color: var(--text); font-size: 1rem; box-sizing: border-box;"
+                    >
                 </div>
             
-                <div class="form-group">
-                    <label for="nftImage">Upload Image</label>
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <label for="nftImage" style="display:block; margin-bottom: 0.5rem; font-weight: 600;">Upload Image</label>
                     <input type="file" id="nftImage" name="file" accept="image/*" required/>
-                    <img id="imagePreview" class="preview" />
+                    <img id="imagePreview" class="preview" style="max-width: 100%; max-height: 200px; margin-top: 15px; border-radius: 8px; object-fit: cover; display: block;" />
                 </div>
 
-                <button type="submit" id="mintBtn" class="mint-btn">✨ Mint NFT</button>
+                <button type="submit" id="mintBtn" class="mint-btn" style="width: 100%;">✨ Mint NFT</button>
             </div>
         </form>
     </div>
